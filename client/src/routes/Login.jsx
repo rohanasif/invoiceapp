@@ -15,13 +15,18 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-10">
       <h1 className="text-4xl">Login</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center gap-5"
+      >
         <input
-          type="text"
+          type="email"
           placeholder="Email"
           name="email"
           value={user.email}
           onChange={handleChange}
+          required
+          className="p-4 bg-slate-300 focus:outline-none"
         />
         <input
           type="password"
@@ -29,8 +34,12 @@ const Login = () => {
           name="password"
           value={user.password}
           onChange={handleChange}
+          required
+          className="p-4 bg-slate-300 focus:outline-none"
         />
-        <button type="submit">Login</button>
+        <button type="submit" className="p-2 bg-green-700 text-white">
+          Login
+        </button>
       </form>
       <p>
         Don&apos;t have account? <Link to={"/signup"}>Sign up!</Link>
