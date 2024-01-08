@@ -4,15 +4,11 @@ export const usersApi = createApi({
   reducerPath: "userApi",
   tagTypes: ["users"],
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000",
+    baseUrl: "http://localhost:3000",
   }),
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => `/users`,
-      providesTags: ["users"],
-    }),
-    getUser: builder.query({
-      query: (id) => `/users/${id}`,
       providesTags: ["users"],
     }),
     signUp: builder.mutation({
@@ -31,6 +27,10 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ["users"],
     }),
+    getLoggedInUser: builder.query({
+      query: () => `/users?isLoggedIn=true`,
+      providesTags: ["users"],
+    }),
     logOut: builder.mutation({
       query: (user) => ({
         url: `/users/${user.id}`,
@@ -44,8 +44,8 @@ export const usersApi = createApi({
 
 export const {
   useGetUsersQuery,
-  useGetUserQuery,
   useSignUpMutation,
   useLogInMutation,
+  useGetLoggedInUserQuery,
   useLogOutMutation,
 } = usersApi;
