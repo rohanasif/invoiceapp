@@ -42,7 +42,10 @@ const Login = () => {
         </button>
       </form>
       <p>
-        Don&apos;t have account? <Link to={"/signup"}>Sign up!</Link>
+        Don&apos;t have account?{" "}
+        <Link to={"/signup"} className="p-2 bg-slate-300 text-slate-700">
+          Sign up!
+        </Link>
       </p>
     </div>
   );

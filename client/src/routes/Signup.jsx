@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { signup } from "../slice/usersSlice";
 import { useSignUpMutation } from "../slice/apiSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 const Signup = () => {
@@ -84,7 +84,10 @@ const Signup = () => {
         </button>
       </form>
       <p>
-        Already registered? <Link to={"/"}>Log in!</Link>
+        Already registered?{" "}
+        <Link to={"/"} className="p-2 bg-slate-300 text-slate-700">
+          Log in!
+        </Link>
       </p>
     </div>
   );
