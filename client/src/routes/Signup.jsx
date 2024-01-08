@@ -14,8 +14,7 @@ const Signup = () => {
     repeatPassword: "",
   });
   const dispatch = useDispatch();
-  const [signUp, signUpResponse] = useSignUpMutation();
-
+  const [signUp] = useSignUpMutation();
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -23,9 +22,7 @@ const Signup = () => {
     e.preventDefault();
     const id = uuidv4();
     dispatch(signup({ ...user, id }));
-    console.log("before: ", signUpResponse);
     signUp({ ...user, id });
-    console.log("after: ", signUpResponse);
   };
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-10">

@@ -25,7 +25,7 @@ export const usersSlice = createSlice({
     },
     login: (state, action) => {
       const foundUser = state.users.find(
-        (user) => user.id === action.payload.id
+        (user) => user.email === action.payload.email
       );
       if (foundUser) {
         state.loggedInUser = {
@@ -40,9 +40,7 @@ export const usersSlice = createSlice({
       }
     },
     getLoggedInUser: (state, action) => {
-      state.loggedInUser = state.users.find(
-        (user) => user.id === action.payload.id
-      );
+      state.loggedInUser = state.users.find((user) => user.isLoggedIn);
     },
     logout: (state, action) => {
       const loggedInUser = state.loggedInUser;

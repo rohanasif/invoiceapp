@@ -1,17 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { login, getLoggedInUser } from "../slice/usersSlice";
+import { useLogInMutation } from "../slice/apiSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  const [logIn] = useLogInMutation();
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(login(user));
+    logIn(user);
   };
+  const checkLogin = () => {
+    const loggedUser = dispatch(getLoggedInUser());
+    if (loggedUser.payload) {
+      navigate("/dashboard");
+    }
+  };
+  useEffect(() => {
+    checkLogin();
+  }, []);
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-10">
       <h1 className="text-4xl">Login</h1>
