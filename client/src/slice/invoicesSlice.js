@@ -6,7 +6,7 @@ export const invoicesSlice = createSlice({
     invoices: [],
   },
   reducers: {
-    setInvoice: (state, action) => {
+    setInvoices: (state, action) => {
       state.invoices = action.payload;
     },
   },
