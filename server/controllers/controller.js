@@ -65,7 +65,7 @@ class userController {
             res.send({
               success: true,
               user: user,
-              message: "user logged in",
+              message: "User logged in",
               token: token,
             });
           } else {
@@ -77,13 +77,13 @@ class userController {
         } else {
           res.send({
             success: false,
-            message: "please fill all feilds",
+            message: "Please fill all fields",
           });
         }
       } else {
         res.send({
           success: "false",
-          message: "user not exist",
+          message: "User does not exist",
         });
       }
     } catch (error) {
