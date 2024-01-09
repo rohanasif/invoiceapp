@@ -1,6 +1,7 @@
 import userModel from "../models/usersModel.js";
 import bcryptjs from "bcryptjs";
-import Jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import { model } from "mongoose";
 
 class userController {
   static signUp = async (req, res) => {
@@ -24,9 +25,18 @@ class userController {
             password: hashedPassword,
           });
           await saveUser.save();
+          const userID = await userModel.findOne({
+            email: email,
+          });
+          const token = await jwt.sign(
+            { userID: userID._id },
+            process.env.JWT_KEY,
+            { expiresIn: "10m" }
+          );
           res.send({
             success: true,
             message: "User created successfully",
+            token: token,
           });
         } catch (error) {
           console.error(error);
@@ -47,9 +57,9 @@ class userController {
           const ispasswordMatch = await bycrpt.compare(password, user.password);
 
           if (user.email === email && ispasswordMatch) {
-            const token = await Jwt.sign(
+            const token = await jwt.sign(
               { userID: user._id },
-              process.env.JWT_KEy,
+              process.env.JWT_KEY,
               { expiresIn: "10m" }
             );
             res.send({
