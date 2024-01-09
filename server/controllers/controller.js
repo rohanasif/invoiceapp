@@ -1,7 +1,6 @@
 import userModel from "../models/usersModel.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { model } from "mongoose";
 
 class userController {
   static signUp = async (req, res) => {
@@ -12,38 +11,39 @@ class userController {
         success: false,
         message: "User already exists",
       });
-    }
-    if (firstName && lastName && email && password && repeatPassword) {
-      if (password === repeatPassword) {
-        try {
-          const salt = await bcryptjs.genSalt(10);
-          const hashedPassword = await bcryptjs.hashSync(password, salt);
-          const saveUser = userModel({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: hashedPassword,
-          });
-          await saveUser.save();
-          const userID = await userModel.findOne({
-            email: email,
-          });
-          const token = await jwt.sign(
-            { userID: userID._id },
-            process.env.JWT_KEY,
-            { expiresIn: "10m" }
-          );
-          res.send({
-            success: true,
-            message: "User created successfully",
-            token: token,
-          });
-        } catch (error) {
-          console.error(error);
-          res.send({
-            success: false,
-            message: "Something went wrong",
-          });
+    } else {
+      if (firstName && lastName && email && password && repeatPassword) {
+        if (password === repeatPassword) {
+          try {
+            const salt = await bcryptjs.genSalt(10);
+            const hashedPassword = await bcryptjs.hashSync(password, salt);
+            const saveUser = userModel({
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              password: hashedPassword,
+            });
+            await saveUser.save();
+            const userID = await userModel.findOne({
+              email: email,
+            });
+            const token = await jwt.sign(
+              { userID: userID._id },
+              process.env.JWT_KEY,
+              { expiresIn: "10m" }
+            );
+            res.send({
+              success: true,
+              message: "User created successfully",
+              token: token,
+            });
+          } catch (error) {
+            console.error(error);
+            res.send({
+              success: false,
+              message: "Something went wrong",
+            });
+          }
         }
       }
     }

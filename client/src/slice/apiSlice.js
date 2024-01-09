@@ -2,34 +2,34 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const usersApi = createApi({
   reducerPath: "userApi",
-  tagTypes: ["users"],
+  tagTypes: ["signup"],
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000",
   }),
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => `/users`,
-      providesTags: ["users"],
+      query: () => `/signup`,
+      providesTags: ["signup"],
     }),
     signUp: builder.mutation({
       query: (user) => ({
-        url: `/users`,
+        url: `/signup`,
         method: "POST",
         body: user,
       }),
-      invalidatesTags: ["users"],
+      invalidatesTags: ["signup"],
     }),
     logIn: builder.mutation({
       query: (user) => ({
-        url: `/users/${user.id}`,
+        url: `/login/${user._id}`,
         method: "PATCH",
         body: { ...user, isLoggedIn: true },
       }),
-      invalidatesTags: ["users"],
+      invalidatesTags: ["login"],
     }),
     getLoggedInUser: builder.query({
       query: () => `/users?isLoggedIn=true`,
-      providesTags: ["users"],
+      providesTags: ["login"],
     }),
     logOut: builder.mutation({
       query: (user) => ({
@@ -37,7 +37,7 @@ export const usersApi = createApi({
         method: "PATCH",
         body: { ...user, isLoggedIn: false },
       }),
-      invalidatesTags: ["users"],
+      invalidatesTags: ["login"],
     }),
   }),
 });
