@@ -21,11 +21,6 @@ const UserSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-  repeatPassword: {
-    type: String,
-    required: true,
-    trim: true,
-  },
 });
 
 const userModel = mongoose.model("users", UserSchema);

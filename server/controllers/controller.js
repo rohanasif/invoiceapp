@@ -1,4 +1,4 @@
-import userModel from "../models/usersModel";
+import userModel from "../models/usersModel.js";
 import bcryptjs from "bcryptjs";
 import Jwt from "jsonwebtoken";
 
@@ -52,11 +52,10 @@ class userController {
               process.env.JWT_KEy,
               { expiresIn: "10m" }
             );
-            console.log("user Loged in");
             res.send({
               success: true,
               user: user,
-              message: "user loged in",
+              message: "user logged in",
               token: token,
             });
           } else {
@@ -78,7 +77,7 @@ class userController {
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
