@@ -21,6 +21,11 @@ const UserSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
+  id: {
+    type: String,
+    required: true,
+    trim: true,
+  },
 });
 
 const userModel = mongoose.model("users", UserSchema);

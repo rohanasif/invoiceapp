@@ -21,8 +21,9 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const id = uuidv4();
-    dispatch(signup({ ...user, id }));
-    signUp({ ...user, id });
+    const submittedUser = { ...user, id };
+    dispatch(signup(submittedUser));
+    signUp(submittedUser);
   };
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-10">

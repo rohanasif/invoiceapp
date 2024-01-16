@@ -4,7 +4,8 @@ import jwt from "jsonwebtoken";
 
 class userController {
   static signUp = async (req, res) => {
-    const { firstName, lastName, email, password, repeatPassword } = req.body;
+    const { firstName, lastName, email, password, repeatPassword, id } =
+      req.body;
     const user = await userModel.findOne({ email: email });
     if (user) {
       res.send({
@@ -22,6 +23,7 @@ class userController {
               lastName: lastName,
               email: email,
               password: hashedPassword,
+              id: id,
             });
             await saveUser.save();
             const userID = await userModel.findOne({
