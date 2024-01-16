@@ -23,22 +23,7 @@ export const usersSlice = createSlice({
         }
       }
     },
-    login: (state, action) => {
-      const foundUser = state.users.find(
-        (user) => user.email === action.payload.email
-      );
-      if (foundUser) {
-        state.loggedInUser = {
-          ...foundUser,
-          isLoggedIn: true,
-        };
-        state.users = state.users.map((user) =>
-          user.id === action.payload.id ? { ...user, isLoggedIn: true } : user
-        );
-      } else {
-        alert("Invalid credentials! Please try again.");
-      }
-    },
+    login: (state, action) => {},
     getLoggedInUser: (state, action) => {
       state.loggedInUser = state.users.find((user) => user.isLoggedIn);
     },

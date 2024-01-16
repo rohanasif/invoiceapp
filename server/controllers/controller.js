@@ -51,12 +51,16 @@ class userController {
     }
   };
   static userLogin = async (req, res) => {
+    console.log(req.body);
     const { email, password } = req.body;
     try {
       const user = await userModel.findOne({ email: email });
       if (user !== "null") {
         if (email && password) {
-          const ispasswordMatch = await bycrpt.compare(password, user.password);
+          const ispasswordMatch = await bcryptjs.compare(
+            password,
+            user.password
+          );
 
           if (user.email === email && ispasswordMatch) {
             const token = await jwt.sign(
@@ -70,6 +74,7 @@ class userController {
               message: "User logged in",
               token: token,
             });
+            console.log(user);
           } else {
             res.send({
               success: false,

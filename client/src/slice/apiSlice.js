@@ -21,9 +21,9 @@ export const usersApi = createApi({
     }),
     logIn: builder.mutation({
       query: (user) => ({
-        url: `/login/${user._id}`,
-        method: "PATCH",
-        body: { ...user, isLoggedIn: true },
+        url: `/login`,
+        method: "POST",
+        body: { email: user.email, password: user.password },
       }),
       invalidatesTags: ["login"],
     }),
@@ -33,9 +33,9 @@ export const usersApi = createApi({
     }),
     logOut: builder.mutation({
       query: (user) => ({
-        url: `/users/${user.id}`,
-        method: "PATCH",
-        body: { ...user, isLoggedIn: false },
+        url: `/login`,
+        method: "POST",
+        body: { email: user.email, password: user.password },
       }),
       invalidatesTags: ["login"],
     }),

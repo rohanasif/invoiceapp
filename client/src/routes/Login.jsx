@@ -12,7 +12,7 @@ const Login = () => {
     password: "",
   });
   const dispatch = useDispatch();
-  const [logIn] = useLogInMutation();
+  const [logIn, loginResponse] = useLogInMutation();
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -20,6 +20,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(login(user));
     logIn(user);
+    alert(loginResponse?.data?.message);
   };
   const checkLogin = () => {
     const loggedUser = dispatch(getLoggedInUser());
