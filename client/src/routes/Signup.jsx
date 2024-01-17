@@ -1,9 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { signup } from "../slice/usersSlice";
 import { useSignUpMutation } from "../slice/apiSlice";
-import { useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 
 const Signup = () => {
   const [user, setUser] = useState({
@@ -13,17 +10,22 @@ const Signup = () => {
     password: "",
     repeatPassword: "",
   });
-  const dispatch = useDispatch();
-  const [signUp] = useSignUpMutation();
+  const [message, setMessage] = useState("");
+  const [signUp, signUpResponse] = useSignUpMutation();
+
+  useEffect(() => {
+    if (signUpResponse?.data?.message) {
+      setMessage(signUpResponse.data.message);
+    }
+  }, [signUpResponse]);
+
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const id = uuidv4();
-    const submittedUser = { ...user, id };
-    dispatch(signup(submittedUser));
-    signUp(submittedUser);
+    signUp(user);
   };
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-10">
@@ -81,6 +83,11 @@ const Signup = () => {
           Signup
         </button>
       </form>
+      {message === "User created successfully" ? (
+        <p className="text-green-700">{message}</p>
+      ) : (
+        <p className="text-red-700">{message}</p>
+      )}
       <p>
         Already registered?{" "}
         <Link to={"/"} className="p-2 bg-slate-300 text-slate-700">

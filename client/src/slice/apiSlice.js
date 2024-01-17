@@ -27,10 +27,6 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ["login"],
     }),
-    getLoggedInUser: builder.query({
-      query: () => `/users?isLoggedIn=true`,
-      providesTags: ["login"],
-    }),
     logOut: builder.mutation({
       query: (user) => ({
         url: `/login`,
@@ -46,6 +42,5 @@ export const {
   useGetUsersQuery,
   useSignUpMutation,
   useLogInMutation,
-  useGetLoggedInUserQuery,
   useLogOutMutation,
 } = usersApi;
