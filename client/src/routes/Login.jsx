@@ -10,13 +10,14 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [logIn, loginResponse] = useLogInMutation();
   const navigate = useNavigate();
-
+  const token = loginResponse?.data?.token;
   useEffect(() => {
     if (loginResponse?.data?.message) {
       const responseMessage = loginResponse.data.message;
       setMessage(responseMessage);
 
       if (responseMessage === "User logged in") {
+        localStorage.setItem("token", JSON.stringify(token));
         alert(responseMessage);
         navigate("/dashboard");
       }
