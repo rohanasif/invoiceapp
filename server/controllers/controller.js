@@ -49,7 +49,6 @@ class userController {
     }
   };
   static userLogin = async (req, res) => {
-    console.log(req.body);
     const { email, password } = req.body;
     try {
       const user = await userModel.findOne({ email: email });
@@ -72,7 +71,6 @@ class userController {
               message: "User logged in",
               token: token,
             });
-            console.log(user);
           } else {
             res.send({
               success: false,
