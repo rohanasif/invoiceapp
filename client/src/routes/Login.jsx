@@ -61,6 +61,9 @@ const Login = () => {
           Login
         </button>
       </form>
+      {message === "User logged in" ? null : (
+        <p className="text-red-700">{message}</p>
+      )}
       <p>
         Don&apos;t have account?{" "}
         <Link to={"/signup"} className="p-2 bg-slate-300 text-slate-700">
