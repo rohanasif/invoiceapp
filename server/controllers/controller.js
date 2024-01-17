@@ -97,7 +97,7 @@ class userController {
   };
 
   static UserDashBoard = (req, res) => {
-    res.send("Dash board a giya");
+    res.send("Dashboard loaded successfully");
   };
 }
 

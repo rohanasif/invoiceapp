@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogInMutation } from "../slice/apiSlice";
 
 const Login = () => {
@@ -7,15 +7,29 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [message, setMessage] = useState("");
   const [logIn, loginResponse] = useLogInMutation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginResponse?.data?.message) {
+      const responseMessage = loginResponse.data.message;
+      setMessage(responseMessage);
+
+      if (responseMessage === "User logged in") {
+        alert(responseMessage);
+        navigate("/dashboard");
+      }
+    }
+  }, [loginResponse, navigate]);
+
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     logIn(user);
-    console.log(loginResponse);
-    //alert(loginResponse?.data?.message);
   };
 
   return (
