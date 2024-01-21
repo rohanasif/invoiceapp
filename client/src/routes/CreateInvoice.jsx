@@ -26,11 +26,9 @@ const CreateInvoice = () => {
   const { data } = useGetCustomersQuery();
 
   const [createOrder, createOrderResponse] = useCreateOrderMutation();
- 
 
   const handleInvoiceSave = () => {
     console.log(invoice);
-    console.log(data);
   };
 
   const openModal = () => {
@@ -62,8 +60,8 @@ const CreateInvoice = () => {
               <option disabled>No options</option>
             ) : (
               data?.map((customer, i) => (
-                <option key={i} value={customer}>
-                  {customer}
+                <option key={i} value={customer.name}>
+                  {customer.name}
                 </option>
               ))
             )}
@@ -89,7 +87,6 @@ const CreateInvoice = () => {
               value={invoice.type}
               onChange={(e) => {
                 setInvoice({ ...invoice, type: e.target.value });
-                console.log(invoice.type);
               }}
               className="p-4 bg-slate-200 focus:outline-none rounded-xl"
               required
@@ -124,9 +121,7 @@ const CreateInvoice = () => {
         <p className="text-red-700">{message}</p>
       )}
       {newCustomerModal ? (
-        <NewCustomerModal
-          setNewCustomerModal={setNewCustomerModal}
-        />
+        <NewCustomerModal setNewCustomerModal={setNewCustomerModal} />
       ) : null}
     </div>
   );
