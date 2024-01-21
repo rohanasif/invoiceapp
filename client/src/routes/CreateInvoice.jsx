@@ -1,6 +1,10 @@
+import {
+  useCreateCustomerMutation,
+  useCreateOrderMutation,
+} from "../slice/apiSlice";
 const CreateInvoice = () => {
-  return <div>
-    
-  </div>;
+  const [createCustomer, createCustomerResponse] = useCreateCustomerMutation();
+  const [createOrder, createOrderResponse] = useCreateOrderMutation();
+  return <div></div>;
 };
 export default CreateInvoice;

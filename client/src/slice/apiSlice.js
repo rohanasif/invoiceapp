@@ -24,10 +24,9 @@ export const appApi = createApi({
       invalidatesTags: ["login"],
     }),
     logOut: builder.mutation({
-      query: (user) => ({
-        url: `/login`,
+      query: () => ({
+        url: `/logout`,
         method: "POST",
-        body: { email: user.email, password: user.password },
       }),
       invalidatesTags: ["login"],
     }),
@@ -44,14 +43,13 @@ export const appApi = createApi({
       invalidatesTags: ["customers"],
     }),
     deleteCustomer: builder.mutation({
-      query: (customer) => ({
-        url: `/customers`,
+      query: (id) => ({
+        url: `/customers/${id}`,
         method: "DELETE",
-        body: customer,
       }),
       invalidatesTags: ["customers"],
     }),
-    getOrders: builder.query({
+    getCustomerOrders: builder.query({
       query: (customerID) => `/orders/${customerID}`,
       providesTags: ["customer_orders"],
     }),
@@ -76,7 +74,7 @@ export const appApi = createApi({
     }),
     deleteAllCustomerOrders: builder.mutation({
       query: (customerID) => ({
-        url: `/orders/${customerID}`,
+        url: `/customers/${customerID}/orders`,
         method: "DELETE",
       }),
       invalidatesTags: ["orders", "customer_orders"],
@@ -91,7 +89,7 @@ export const {
   useGetCustomersQuery,
   useCreateCustomerMutation,
   useDeleteCustomerMutation,
-  useGetOrdersQuery,
+  useGetCustomerOrdersQuery,
   useGetAllOrdersQuery,
   useCreateOrderMutation,
   useDeleteOrderMutation,
