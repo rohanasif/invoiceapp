@@ -1,5 +1,8 @@
 import LogoutBtn from "./LogoutBtn";
+import { useNavigate } from "react-router-dom";
+
 const UserDashboard = () => {
+  const navigate = useNavigate();
   return (
     <div className="h-screen relative">
       <div className="flex justify-between mx-4 mt-2 flex-wrap">

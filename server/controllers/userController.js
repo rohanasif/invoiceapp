@@ -52,7 +52,7 @@ class userController {
     const { email, password } = req.body;
     try {
       const user = await userModel.findOne({ email: email });
-      if (user !== "null") {
+      if (user !== null) {
         if (email && password) {
           const ispasswordMatch = await bcryptjs.compare(
             password,
@@ -92,10 +92,6 @@ class userController {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  static UserDashBoard = (req, res) => {
-    res.send("Dashboard loaded successfully");
   };
 }
 
