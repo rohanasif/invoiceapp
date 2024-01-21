@@ -95,6 +95,10 @@ export const {
   useLogOutMutation,
   useGetCustomersQuery,
   useCreateCustomerMutation,
+  useDeleteCustomerMutation,
   useGetOrdersQuery,
+  useGetAllOrdersQuery,
   useCreateOrderMutation,
+  useDeleteOrderMutation,
+  useDeleteAllCustomerOrdersMutation,
 } = appApi;
