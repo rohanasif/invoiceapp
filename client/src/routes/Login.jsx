@@ -15,7 +15,6 @@ const Login = () => {
     if (loginResponse?.data?.message) {
       const responseMessage = loginResponse.data.message;
       setMessage(responseMessage);
-
       if (responseMessage === "User logged in") {
         localStorage.setItem("token", JSON.stringify(token));
         alert(responseMessage);

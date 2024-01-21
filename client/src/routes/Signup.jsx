@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSignUpMutation } from "../slice/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -12,6 +15,12 @@ const Signup = () => {
   });
   const [message, setMessage] = useState("");
   const [signUp, signUpResponse] = useSignUpMutation();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
 
   useEffect(() => {
     if (signUpResponse?.data?.message) {
