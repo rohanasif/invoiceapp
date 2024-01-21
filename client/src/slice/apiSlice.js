@@ -7,10 +7,6 @@ export const appApi = createApi({
     baseUrl: "http://localhost:3000",
   }),
   endpoints: (builder) => ({
-    getUsers: builder.query({
-      query: () => `/signup`,
-      providesTags: ["signup"],
-    }),
     signUp: builder.mutation({
       query: (user) => ({
         url: `/signup`,
@@ -89,7 +85,6 @@ export const appApi = createApi({
 });
 
 export const {
-  useGetUsersQuery,
   useSignUpMutation,
   useLogInMutation,
   useLogOutMutation,
