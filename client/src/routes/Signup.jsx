@@ -90,7 +90,7 @@ const Signup = () => {
       )}
       <p>
         Already registered?{" "}
-        <Link to={"/"} className="p-2 bg-slate-300 text-slate-700">
+        <Link to={"/login"} className="p-2 bg-slate-300 text-slate-700">
           Log in!
         </Link>
       </p>

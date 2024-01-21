@@ -19,7 +19,7 @@ const Login = () => {
       if (responseMessage === "User logged in") {
         localStorage.setItem("token", JSON.stringify(token));
         alert(responseMessage);
-        navigate("/dashboard");
+        navigate("/");
       }
     }
   }, [loginResponse, navigate]);
