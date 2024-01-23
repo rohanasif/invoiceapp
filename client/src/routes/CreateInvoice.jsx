@@ -11,7 +11,7 @@ const CreateInvoice = () => {
   const [message, setMessage] = useState("");
   const [invoice, setInvoice] = useState({
     type: "Invoice",
-    number: "",
+    number: 0,
     customer: "",
     date: new Date(),
     dueDate: new Date(),
@@ -19,6 +19,7 @@ const CreateInvoice = () => {
     items: [],
     taxRate: 0,
     note: "",
+    status: "Unpaid",
   });
 
   const [newCustomerModal, setNewCustomerModal] = useState(false);
@@ -48,7 +49,7 @@ const CreateInvoice = () => {
         <h1 className="text-4xl">Create</h1>
         <LogoutBtn />
       </div>
-      <div className="flex flex-wrap justify-between">
+      <div className="flex flex-wrap justify-between mt-8">
         <div className="flex flex-col mx-4 justify-center gap-4">
           <p className="text-sm text-gray-500">BILL TO</p>
           <select
@@ -76,8 +77,7 @@ const CreateInvoice = () => {
             New Customer
           </button>
         </div>
-
-        <div className="flex flex-col mx-4 justify-center gap-10">
+        <div className="flex flex-col mx-4 justify-center gap-5 items-end">
           <div className="flex items-center gap-2">
             <label htmlFor="type" className="text-gray-500">
               Select type
@@ -99,6 +99,102 @@ const CreateInvoice = () => {
               <option value="Quotation">Quotation</option>
             </select>
           </div>
+          <div className="flex items-center gap-2">
+            <label htmlFor="invoicenumber" className="text-gray-500">
+              Invoice #:
+            </label>
+            <input
+              type="text"
+              name="invoicenumber"
+              id="invoicenumber"
+              value={invoice.number}
+              className="focus:outline-none border-b-2 border-gray-400 px-4 py-2 bg-slate-200 text-center max-w-[100px]"
+              onChange={(e) =>
+                setInvoice({ ...invoice, number: e.target.value })
+              }
+              required
+              placeholder="Invoice Number"
+            />
+          </div>
+          <div className="flex flex-col items-end">
+            <p className="text-sm text-gray-500">STATUS</p>
+            <h4
+              className={
+                invoice.status === "Unpaid"
+                  ? "text-red-700 font-bold text-2xl"
+                  : "text-green-700 font-bold text-2xl"
+              }
+            >
+              {invoice.status}
+            </h4>
+          </div>
+          <div className="flex flex-col items-end">
+            <p className="text-sm text-gray-500">DATE</p>
+            <h4 className="text-lg">{`${invoice.date.getDate()}/${
+              invoice.date.getMonth() + 1
+            }/${invoice.date.getDate()}`}</h4>
+          </div>
+          <div className="flex flex-col items-end">
+            <p className="text-sm text-gray-500">DUE DATE</p>
+            <h4 className="text-lg">{`${invoice.dueDate.getDate()}/${
+              invoice.dueDate.getMonth() + 1
+            }/${invoice.dueDate.getDate()}`}</h4>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">AMOUNT</p>
+            <h4 className="text-lg">{invoice.amount}</h4>
+          </div>
+        </div>
+      </div>
+      <div className="flex mx-4">
+        <div className="relative overflow-x-auto">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Item
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Qty
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Price
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Disc(%)
+                </th>
+                <th scope="col" className="relative px-6 py-3">
+                  Amount
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  <input
+                    type="text"
+                    placeholder="Item name or description"
+                    className=""
+                  />
+                </th>
+                <td className="px-6 py-4">
+                  <input type="text" placeholder="0" />
+                </td>
+                <td className="px-6 py-4">
+                  <input type="text" placeholder="0" />
+                </td>
+                <td className="px-6 py-4">
+                  <input type="text" placeholder="0" />
+                </td>
+                <td className="px-6 py-4">
+                  <input type="text" placeholder="0" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div className="mx-4 my-4 flex items-center gap-4">
